@@ -28,7 +28,7 @@ def is_infinite(list)
   hare = list
 
   while hare
-    if tortoise.nil? && hare.nil? # We've reached the end of a list, which means it's finite
+    if tortoise.nil? || hare.nil? # We've reached the end of a list, which means it's finite
       return false
     end
 
@@ -38,14 +38,15 @@ def is_infinite(list)
     if hare.nil?
       return false # We've reached the end of a list, which means it's finite
     else
-      # The crucial step: The hare moves twice as fast as the tortoise, who only moves one node 
-      # at a time. Therefore, if they fall into a loop, then the hare will eventually loop around
-      # and catch up with the plodding turtle (even if it requires hopping over the tortoise on
-      # one or more times).
+      # The crucial step: The hare moves twice as fast as the tortoise, who only moves one node
+      # at a time. If the list in finite, then the hare will always beat the tortoise to the end.
+      # However, if they've fallen into a (timey-wimy) loop, then the hare will eventually
+      # circle around and catch up with the plodding tortoise (even if it requires hopping over
+      # the tortoise one or more times en route).
       hare = hare.next_node
     end
 
-    if tortoise == hare # The hare must have circled back around and caught up
+    if tortoise == hare # The hare must have circled back around and caught up, proving a loop
       return true
     end
   end
