@@ -9,6 +9,27 @@ class LinkedListNode
   end
 end
 
+class Stack
+  attr_reader :data
+
+  def initialize
+    @data = nil
+  end
+
+  # Push an item onto the stack
+  def push(element)
+    # IMPLEMENT ME!
+  end
+
+  # Pop an item off the stack.
+  # Remove the last item that was pushed onto the
+  # stack and return it to the user
+  def pop
+    # IMPLEMENT ME
+  end
+
+end
+
 # Functions
 
 def print_values(list_node)
@@ -19,6 +40,17 @@ def print_values(list_node)
   else
     print_values(list_node.next_node)
   end
+end
+
+def reverse_list(list)
+  # ADD CODE HERE
+
+  while list
+    # ADD CODE HERE
+    list = list.next_node
+  end
+
+  # ADD CODE HERE
 end
 
 # Example Nodes
