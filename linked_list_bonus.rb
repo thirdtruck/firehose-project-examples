@@ -21,17 +21,40 @@ def print_values(list_node)
   end
 end
 
+# For the sake of simplicity, we assume that we've been passed the first node in a list that has
+# at least two nodes (a prerequisite for a loop-capable list).
 def is_infinite(list)
-  lam, mu = floyd(list)
-  return lam > 1
+  tortoise = list
+  hare = list
+
+  while hare
+    if tortoise.nil? && hare.nil? # We've reached the end of a list, which means it's finite
+      return false
+    end
+
+    tortoise = tortoise.next_node
+    hare = hare.next_node
+
+    if hare.nil?
+      return false # We've reached the end of a list, which means it's finite
+    else
+      # The crucial step: The hare moves twice as fast as the tortoise, who only moves one node 
+      # at a time. Therefore, if they fall into a loop, then the hare will eventually loop around
+      # and catch up with the plodding turtle (even if it requires hopping over the tortoise on
+      # one or more times).
+      hare = hare.next_node
+    end
+
+    if tortoise == hare # The hare must have circled back around and caught up
+      return true
+    end
+  end
 end
 
 def f(node)
   node.next_node if node
 end
 
-# For the sake of simplicity, we assume that we've been passed the first node in a list that has
-# at least two nodes (a prerequisite for a loop-capable list).
 def floyd(x0)
   tortoise = f(x0)
   hare = f(f(x0))
@@ -64,9 +87,18 @@ end
 node1 = LinkedListNode.new(37)
 node2 = LinkedListNode.new(99, node1)
 node3 = LinkedListNode.new(12, node2)
-node1.next_node = node3
 
 # Example Usage
+
+if is_infinite(node3)
+  puts "Cannot print infinite lists."
+else
+  print_values(node3)
+end
+
+# Create a loop
+
+node1.next_node = node3
 
 if is_infinite(node3)
   puts "Cannot print infinite lists."
