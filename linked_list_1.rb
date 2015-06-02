@@ -83,14 +83,39 @@ def print_values(list_node)
 end
 
 def reverse_list(list)
-  # ADD CODE HERE
+  stack = Stack.new
 
+  # Populate the stack with the values of the list (in their original order)
   while list
-    # ADD CODE HERE
+    stack.push(list.value)
     list = list.next_node
   end
 
-  # ADD CODE HERE
+  new_head = nil # Our return value, which will remain the same once set
+  old_tail = nil # The cursor that tracks the last node added to our new list
+
+  # (For the sake of this exercise, we're assuming that none of the nodes have nil values.
+  # A more advanced Stack would provide a #size method or the like, which would allow us to
+  # move beyond that assumption.)
+  # (We're also assuming that we've been passed a non-empty list. A more advanced version
+  # of this method would add additional checks.)
+  while next_value = stack.pop
+    # If we've already added at least one value, then add the next one to the list and 
+    # advance the cursor.
+    # Otherwise we're still at the first value, so populate the starting node and set the
+    # cursor to that first node.
+    if old_tail
+      new_tail = LinkedListNode.new(next_value)
+      old_tail.next_node = new_tail
+      old_tail = new_tail
+    else
+      new_head = LinkedListNode.new(next_value)
+      old_tail = new_head
+      next
+    end
+  end
+
+  new_head
 end
 
 # Example Nodes
