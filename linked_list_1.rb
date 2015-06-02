@@ -32,6 +32,20 @@ end
 
 # Functions
 
+def last_node_in_list(list)
+  last_node = list
+
+  unless last_node
+    return nil
+  end
+
+  while next_node = last_node.next_node
+    last_node = next_node
+  end
+
+  last_node
+end
+
 def print_values(list_node)
   print "#{list_node.value} --> "
   if list_node.next_node.nil?
