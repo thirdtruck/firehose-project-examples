@@ -33,7 +33,21 @@ class Stack
   # Remove the last item that was pushed onto the
   # stack and return it to the user
   def pop
-    # IMPLEMENT ME
+    last_node = @data
+    second_to_last_node = nil
+
+    unless last_node
+      return nil
+    end
+
+    while next_node = last_node.next_node
+      second_to_last_node = last_node
+      last_node = next_node
+    end
+
+    second_to_last_node.next_node = nil # Cut off the end of the tail
+
+    last_node.value
   end
 
 end
