@@ -45,7 +45,11 @@ class Stack
       last_node = next_node
     end
 
-    second_to_last_node.next_node = nil # Cut off the end of the tail
+    if second_to_last_node
+      second_to_last_node.next_node = nil # Cut off the end of the tail
+    else
+      @data = nil # We made it down to the very last item, so delete it
+    end
 
     last_node.value
   end
@@ -114,7 +118,6 @@ print_values(stack.data)
 puts stack.pop
 print_values(stack.data)
 puts stack.pop
-print_values(stack.data)
 
 revlist = reverse_list(node3)
 
