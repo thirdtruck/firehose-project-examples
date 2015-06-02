@@ -30,3 +30,10 @@ node3 = LinkedListNode.new(12, node2)
 # Example Usage
 
 print_values(node3)
+
+# Linked List Problem #1
+
+revlist = reverse_list(node3)
+
+print_values(revlist)
+
