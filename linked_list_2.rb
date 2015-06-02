@@ -24,16 +24,23 @@ end
 
 def reverse_list(list, previous=nil)
   unless list.next_node
+    # We've reached the last item of the original list, so append all of the
+    # now-reversed nodes to it and just return our new head node.
     list.next_node = previous
     return list
   end
 
+  # "new_head" is one of two adjacent cursors that run down the length of the list in tandem.
   new_head = list
 
+  # "new_tail" is the other cursor. Save it now, since we'll be detaching it temporarily.
   new_tail = list.next_node
 
+  # "Change the direction of the arrow" here.
+  # Note: "previous" will be nil the first time we call this method.
   new_head.next_node = previous
 
+  # With the cursors advanced, change the next arrow.
   reverse_list(new_tail, new_head)
 end
 
