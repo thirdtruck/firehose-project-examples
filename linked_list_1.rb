@@ -19,6 +19,14 @@ class Stack
   # Push an item onto the stack
   def push(element)
     # IMPLEMENT ME!
+    if @data
+      last_node = last_node_in_list(@data)
+      last_node.next_node = LinkedListNode.new(element)
+    else
+      @data = LinkedListNode.new(element)
+    end
+
+    self # Return self to make chaining method calls easier. A good default for methods without an obvious return value.
   end
 
   # Pop an item off the stack.
