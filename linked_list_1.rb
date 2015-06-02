@@ -109,6 +109,13 @@ print_values(stack.data)
 stack.push(3)
 print_values(stack.data)
 
+puts stack.pop
+print_values(stack.data)
+puts stack.pop
+print_values(stack.data)
+puts stack.pop
+print_values(stack.data)
+
 revlist = reverse_list(node3)
 
 print_values(revlist)
