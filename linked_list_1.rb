@@ -87,6 +87,14 @@ print_values(node3)
 
 # Linked List Problem #1
 
+stack = Stack.new
+stack.push(1)
+print_values(stack.data)
+stack.push(2)
+print_values(stack.data)
+stack.push(3)
+print_values(stack.data)
+
 revlist = reverse_list(node3)
 
 print_values(revlist)
