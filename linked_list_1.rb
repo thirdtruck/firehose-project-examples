@@ -18,59 +18,21 @@ class Stack
 
   # Push an item onto the stack
   def push(element)
-    # IMPLEMENT ME!
-    if @data
-      last_node = last_node_in_list(@data)
-      last_node.next_node = LinkedListNode.new(element)
-    else
-      @data = LinkedListNode.new(element)
-    end
-
-    self # Return self to make chaining method calls easier. A good default for methods without an obvious return value.
+    @data = LinkedListNode.new(element, @data)
   end
 
   # Pop an item off the stack.
   # Remove the last item that was pushed onto the
   # stack and return it to the user
   def pop
-    last_node = @data
-    second_to_last_node = nil
-
-    unless last_node
-      return nil
-    end
-
-    while next_node = last_node.next_node
-      second_to_last_node = last_node
-      last_node = next_node
-    end
-
-    if second_to_last_node
-      second_to_last_node.next_node = nil # Cut off the end of the tail
-    else
-      @data = nil # We made it down to the very last item, so delete it
-    end
-
-    last_node.value
+    old_head = @data
+    @data = @data && @data.next_node # Note the nil guard
+    old_head
   end
 
 end
 
 # Functions
-
-def last_node_in_list(list)
-  last_node = list
-
-  unless last_node
-    return nil
-  end
-
-  while next_node = last_node.next_node
-    last_node = next_node
-  end
-
-  last_node
-end
 
 def print_values(list_node)
   print "#{list_node.value} --> "
@@ -85,37 +47,9 @@ end
 def reverse_list(list)
   stack = Stack.new
 
-  # Populate the stack with the values of the list (in their original order)
-  while list
-    stack.push(list.value)
-    list = list.next_node
-  end
+  stack.push(list.value) while list = list.next_node
 
-  new_head = nil # Our return value, which will remain the same once set
-  old_tail = nil # The cursor that tracks the last node added to our new list
-
-  # (For the sake of this exercise, we're assuming that none of the nodes have nil values.
-  # A more advanced Stack would provide a #size method or the like, which would allow us to
-  # move beyond that assumption.)
-  # (We're also assuming that we've been passed a non-empty list. A more advanced version
-  # of this method would add additional checks.)
-  while next_value = stack.pop
-    # If we've already added at least one value, then add the next one to the list and 
-    # advance the cursor.
-    # Otherwise we're still at the first value, so populate the starting node and set the
-    # cursor to that first node.
-    if old_tail
-      new_tail = LinkedListNode.new(next_value)
-      old_tail.next_node = new_tail
-      old_tail = new_tail
-    else
-      new_head = LinkedListNode.new(next_value)
-      old_tail = new_head
-      next
-    end
-  end
-
-  new_head
+  return stack.data
 end
 
 # Example Nodes
@@ -138,11 +72,11 @@ print_values(stack.data)
 stack.push(3)
 print_values(stack.data)
 
-puts stack.pop
+stack.pop
 print_values(stack.data)
-puts stack.pop
+stack.pop
 print_values(stack.data)
-puts stack.pop
+stack.pop
 
 revlist = reverse_list(node3)
 
